@@ -1,0 +1,57 @@
+Package: SHARK4R
+Title: Accessing and Validating Marine Environmental Data from 'SHARK'
+        and Related Databases
+Version: 1.0.1
+Authors@R: c(
+    person("Markus", "Lindh", role = "aut",
+           comment = c("Swedish Meteorological and Hydrological Institute", ORCID = "0000-0002-7120-4145")),
+    person("Anders", "Torstensson", email = "anders.torstensson@smhi.se", role = c("aut", "cre"),
+           comment = c("Swedish Meteorological and Hydrological Institute", ORCID = "0000-0002-8283-656X")),
+    person("Mikael", "Hedblom", role = "ctb",
+           comment = c("Swedish Meteorological and Hydrological Institute", ORCID = "0009-0007-5124-9956")),
+    person("Bengt", "Karlson", role = "ctb",
+           comment = c("Swedish Meteorological and Hydrological Institute", ORCID = "0000-0002-7524-3504")),
+    person("SHARK", email = "shark@smhi.se", role = "cph"),
+    person("SBDI", role = "fnd",
+           comment = "Swedish Research Council, 2019-00242")
+  )
+Description: Provides functions to retrieve, process, analyze, and
+    quality-control marine physical, chemical, and biological data. The
+    main focus is on Swedish monitoring data available through the 'SHARK'
+    database <https://shark.smhi.se/en/>, with additional API support for 'Nordic
+    Microalgae' <https://nordicmicroalgae.org/>, 'Dyntaxa'
+    <https://artfakta.se/>, World Register of Marine Species ('WoRMS') <https://www.marinespecies.org>,
+    'AlgaeBase' <https://www.algaebase.org>, OBIS 'xylookup' web service 
+    <https://iobis.github.io/xylookup/> and Intergovernmental Oceanographic Commission (IOC) - 
+    UNESCO databases on harmful algae  <https://www.marinespecies.org/hab/> and toxins
+    <https://toxins.hais.ioc-unesco.org/>.
+License: MIT + file LICENSE
+URL: https://sharksmhi.github.io/SHARK4R/,
+        https://github.com/sharksmhi/SHARK4R
+BugReports: https://github.com/sharksmhi/SHARK4R/issues
+Depends: R (>= 4.1.0)
+Imports: dplyr, DT, ggplot2, httr, jsonlite, leaflet, lifecycle, purrr,
+        readr, readxl, rlang, sf, sp, stringi, terra, tidyr, vroom,
+        worrms
+Suggests: htmltools, iRfcb, knitr, plotly, RColorBrewer, rmarkdown,
+        skimr, spelling, shiny, shinythemes, testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+RoxygenNote: 7.3.3
+NeedsCompilation: no
+Packaged: 2025-12-02 22:56:45 UTC; anders
+Author: Markus Lindh [aut] (Swedish Meteorological and Hydrological Institute,
+    ORCID: <https://orcid.org/0000-0002-7120-4145>),
+  Anders Torstensson [aut, cre] (Swedish Meteorological and Hydrological
+    Institute, ORCID: <https://orcid.org/0000-0002-8283-656X>),
+  Mikael Hedblom [ctb] (Swedish Meteorological and Hydrological
+    Institute, ORCID: <https://orcid.org/0009-0007-5124-9956>),
+  Bengt Karlson [ctb] (Swedish Meteorological and Hydrological Institute,
+    ORCID: <https://orcid.org/0000-0002-7524-3504>),
+  SHARK [cph],
+  SBDI [fnd] (Swedish Research Council, 2019-00242)
+Maintainer: Anders Torstensson <anders.torstensson@smhi.se>
+Repository: CRAN
+Date/Publication: 2025-12-09 08:50:07 UTC

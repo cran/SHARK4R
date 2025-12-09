@@ -1,0 +1,12 @@
+name: shark-qc
+title: shark-qc
+username: nodc-sweden
+account: nodc-sweden
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15773421
+bundleId: 11248587
+url: https://nodc-sweden.shinyapps.io/shark-qc/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Retrieve Data From Nordic Microalgae</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Retrieve Data From Nordic Microalgae</h1>
+
+
+
+<div id="nordic-microalgae" class="section level2">
+<h2>Nordic Microalgae</h2>
+<p><a href="https://nordicmicroalgae.org/">Nordic Microalgae</a> is an
+online platform providing high-quality images, illustrations, and
+detailed information about aquatic microalgae and related organisms in
+the Nordic region, including phytoplankton, microzooplankton, and
+benthic microalgae. It features a comprehensive species checklist,
+up-to-date taxonomic data linked to WoRMS and AlgaeBase, and
+supplementary resources such as biovolume lists and occurrence maps.
+Established in 1996 and supported by long-term funding from the Swedish
+Research Council through the Swedish Biodiversity Data Infrastructure
+(SBDI).</p>
+<p>All data on Nordic Microalgae is accessible through our <a href="https://nordicmicroalgae.org/api/">API</a>. Below are examples
+demonstrating how to extract data using the SHARK4R package.</p>
+</div>
+<div id="getting-started" class="section level2">
+<h2>Getting Started</h2>
+<div id="installation" class="section level4">
+<h4>Installation</h4>
+<p>You can install the latest version of <code>SHARK4R</code> from CRAN
+using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;SHARK4R&quot;</span>)</span></code></pre></div>
+<p>Load the <code>SHARK4R</code> and <code>dplyr</code> libraries:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(SHARK4R)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+</div>
+</div>
+<div id="retrieve-complete-nordic-microalgae-taxon-table" class="section level2">
+<h2>Retrieve Complete Nordic Microalgae Taxon Table</h2>
+<p>A complete Nordic Microalgae taxa list can be retrieved through the
+API.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Get taxa information</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>taxa <span class="ot">&lt;-</span> <span class="fu">get_nua_taxa</span>(<span class="at">unparsed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Print data</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">tibble</span>(taxa)</span></code></pre></div>
+<pre><code>## # A tibble: 6,860 × 5
+##    scientific_name           authority                       rank  slug  nua_url
+##    &lt;chr&gt;                     &lt;chr&gt;                           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  
+##  1 Abollifer                 Vørs, 1992                      Genus abol… https:…
+##  2 Abollifer prolabens       Vørs, 1992                      Spec… abol… https:…
+##  3 Acanthoceras              Honigm., 1910                   Genus acan… https:…
+##  4 Acanthoceras zachariasii  (Brun) Simonsen, 1979           Spec… acan… https:…
+##  5 Acanthocerataceae         Round, Crawford &amp; Mann, 1990    Fami… acan… https:…
+##  6 Acanthocorbis             S.Hara &amp; E.Takahashi, 1984      Genus acan… https:…
+##  7 Acanthocorbis apoda       (Leadbeater) Hara &amp; Takahashi,… Spec… acan… https:…
+##  8 Acanthocorbis asymmetrica (Thomsen) Hara &amp; Takahashi, 19… Spec… acan… https:…
+##  9 Acanthocorbis campanula   (Espeland) Thomsen, 1991        Spec… acan… https:…
+## 10 Acanthocorbis haurakiana  Thomsen, 1991                   Spec… acan… https:…
+## # ℹ 6,850 more rows</code></pre>
+<p>The full taxonomic information can be accessed as an unparsed list by
+enabling the <code>unparsed</code> parameter.</p>
+</div>
+<div id="get-nordic-microalgae-external-links-or-facts" class="section level2">
+<h2>Get Nordic Microalgae External Links or Facts</h2>
+<p>Each taxon sheet on Nordic Microalgae contains facts, such as links
+to external webpages (e.g. AlgaeBase, WoRMS and Dyntaxa). These links
+can be retrieved through the API.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Randomly select 10 taxa from shark_taxon$scientific_name</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>slugs <span class="ot">&lt;-</span> <span class="fu">sample</span>(taxa<span class="sc">$</span>slug, <span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Get external links</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>external_links <span class="ot">&lt;-</span> <span class="fu">get_nua_external_links</span>(slugs, </span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                                         <span class="at">verbose =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                                         <span class="at">unparsed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co"># Print list</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="fu">tibble</span>(external_links)</span></code></pre></div>
+<pre><code>## # A tibble: 58 × 6
+##    slug                       provider label external_id external_url collection
+##    &lt;chr&gt;                      &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     
+##  1 trachelomonas-armata-var-… AlgaeBa… Alga… 30662       https://www… External …
+##  2 trachelomonas-armata-var-… Dyntaxa  Dynt… 257735      https://art… External …
+##  3 trachelomonas-armata-var-… GBIF     GBIF  3208934     https://www… External …
+##  4 trachelomonas-armata-var-… WoRMS    WoRMS 671172      https://www… External …
+##  5 oedogonium-oblongum        AlgaeBa… Alga… 27614       https://www… External …
+##  6 oedogonium-oblongum        Dyntaxa  Dynt… 258191      https://art… External …
+##  7 oedogonium-oblongum        ENA      ENA   321589      https://www… External …
+##  8 oedogonium-oblongum        GBIF     GBIF  2640144     https://www… External …
+##  9 oedogonium-oblongum        NCBI     NCBI  321589      https://www… External …
+## 10 oedogonium-oblongum        WoRMS    WoRMS 608553      https://www… External …
+## # ℹ 48 more rows</code></pre>
+<p>The full list of facts can be accessed as an unparsed list by setting
+the <code>unparsed</code> parameter to <code>TRUE</code>.</p>
+</div>
+<div id="get-nordic-microalgae-harmfulness-information" class="section level2">
+<h2>Get Nordic Microalgae Harmfulness Information</h2>
+<p>Taxa listed in the <a href="https://www.marinespecies.org/hab/">IOC-UNESCO Taxonomic Reference
+List of Harmful Micro Algae</a> contain information about harmfulness.
+This information can be retrieved through the API.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Get external links</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>harmfulness <span class="ot">&lt;-</span> <span class="fu">get_nua_harmfulness</span>(<span class="fu">c</span>(<span class="st">&quot;dinophysis-acuta&quot;</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                                     <span class="st">&quot;alexandrium-ostenfeldii&quot;</span>), </span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                                   <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co"># Print list</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fu">tibble</span>(harmfulness)</span></code></pre></div>
+<pre><code>## # A tibble: 11 × 6
+##    slug                    provider   label  external_id external_url collection
+##    &lt;chr&gt;                   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     
+##  1 dinophysis-acuta        IOC        IOC H… 109604      https://www… Harmful a…
+##  2 dinophysis-acuta        IOC-UNESCO IOC-U… 6           https://tox… Harmful a…
+##  3 dinophysis-acuta        IOC-UNESCO IOC-U… 1           https://tox… Harmful a…
+##  4 dinophysis-acuta        IOC-UNESCO IOC-U… 5           https://tox… Harmful a…
+##  5 alexandrium-ostenfeldii IOC        IOC H… 109712      https://www… Harmful a…
+##  6 alexandrium-ostenfeldii IOC-UNESCO IOC-U… 464         https://tox… Harmful a…
+##  7 alexandrium-ostenfeldii IOC-UNESCO IOC-U… 463         https://tox… Harmful a…
+##  8 alexandrium-ostenfeldii IOC-UNESCO IOC-U… 462         https://tox… Harmful a…
+##  9 alexandrium-ostenfeldii IOC-UNESCO IOC-U… 12          https://tox… Harmful a…
+## 10 alexandrium-ostenfeldii IOC-UNESCO IOC-U… 15          https://tox… Harmful a…
+## 11 alexandrium-ostenfeldii IOC-UNESCO IOC-U… 17          https://tox… Harmful a…</code></pre>
+</div>
+<div id="get-nordic-microalgae-media-links" class="section level2">
+<h2>Get Nordic Microalgae Media Links</h2>
+<p>Links to all images present on Nordic Microalgae can be retrieved
+through the API. The images are available in four sizes: original (o),
+small (s), medium (m), and large (l).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Get all media links</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">get_nua_media_links</span>(<span class="at">unparsed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># Print list</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">tibble</span>(media)</span></code></pre></div>
+<pre><code>## # A tibble: 2,420 × 10
+##    slug              image_l_url image_o_url image_s_url image_m_url contributor
+##    &lt;chr&gt;             &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;      
+##  1 lennoxia-faveola… https://no… https://no… https://no… https://no… Maria Karl…
+##  2 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  3 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  4 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  5 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  6 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  7 pleurosigma       https://no… https://no… https://no… https://no… Maria Karl…
+##  8 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  9 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+## 10 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+## # ℹ 2,410 more rows
+## # ℹ 4 more variables: photographer_artist &lt;chr&gt;, copyright_holder &lt;chr&gt;,
+## #   license &lt;chr&gt;, galleries &lt;chr&gt;</code></pre>
+<p>Complete media information can be retrieved as an unparsed list by
+setting the <code>unparsed</code> parameter to <code>TRUE</code>.</p>
+</div>
+<div id="get-nomp-and-eg-phyto-biovolume-lists" class="section level2">
+<h2>Get NOMP and EG Phyto Biovolume lists</h2>
+<p>To standardize phytoplankton monitoring efforts in the Baltic Sea,
+Skagerrak, and the North Sea, various lists containing size class
+information for each taxon have been established. These lists can be
+retrieved directly in R using <code>SHARK4R</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Get EG Phyto Biovolume list</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>peg_list <span class="ot">&lt;-</span> <span class="fu">get_peg_list</span>()</span></code></pre></div>
+<pre><code>## Reading PEG biovolume Excel file for year: 2025</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Print list</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">tibble</span>(peg_list)</span></code></pre></div>
+<pre><code>## # A tibble: 3,527 × 36
+##    Division    Class Order Genus Species SFLAG STAGE Author AphiaID AphiaID_link
+##    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;       
+##  1 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  West …  146563 http://www.…
+##  2 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  West …  146563 http://www.…
+##  3 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  West …  146563 http://www.…
+##  4 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  West …  146563 http://www.…
+##  5 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  West …  146563 http://www.…
+##  6 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  West …  146563 http://www.…
+##  7 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  West …  146563 http://www.…
+##  8 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  W. &amp; …  146564 http://www.…
+##  9 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  W. &amp; …  146564 http://www.…
+## 10 CYANOBACTE… Cyan… CHRO… Apha… Aphano… &lt;NA&gt;  &lt;NA&gt;  W. &amp; …  146564 http://www.…
+## # ℹ 3,517 more rows
+## # ℹ 26 more variables: Trophy &lt;chr&gt;, Geometric_shape &lt;chr&gt;, FORMULA &lt;chr&gt;,
+## #   SizeClassNo &lt;dbl&gt;, Nonvalid_SIZCL &lt;lgl&gt;, Not_accepted_name &lt;lgl&gt;,
+## #   Unit &lt;chr&gt;, SizeRange &lt;chr&gt;, `Length(l1)µm` &lt;dbl&gt;, `Length(l2)µm` &lt;dbl&gt;,
+## #   `Width(w)µm` &lt;dbl&gt;, `Height(h)µm` &lt;dbl&gt;, `Diameter(d1)µm` &lt;dbl&gt;,
+## #   `Diameter(d2)µm` &lt;dbl&gt;, `No_of_cells/counting_unit` &lt;dbl&gt;,
+## #   `Calculated_volume_µm3 (with formula) - NOT IMPORTED, NOT handled by ICES` &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Get NOMP Biovolume list</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>nomp_list <span class="ot">&lt;-</span> <span class="fu">get_nomp_list</span>()</span></code></pre></div>
+<pre><code>## File for year 2025 not available. Trying previous year...</code></pre>
+<pre><code>## File for year 2024 found in cache.</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Print list</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">tibble</span>(nomp_list)</span></code></pre></div>
+<pre><code>## # A tibble: 3,846 × 39
+##    List      `HELCOM area` `OSPAR area` Division Class Order Genus Species SFLAG
+##    &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;
+##  1 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  2 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  3 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  4 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  5 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  6 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  7 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  8 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+##  9 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+## 10 PEG_BVOL… x             &lt;NA&gt;         CYANOBA… Cyan… CHRO… Apha… Aphano… &lt;NA&gt; 
+## # ℹ 3,836 more rows
+## # ℹ 30 more variables: STAGE &lt;chr&gt;, Author &lt;chr&gt;, AphiaID &lt;dbl&gt;,
+## #   AphiaID_link &lt;chr&gt;, Trophy &lt;chr&gt;, Geometric_shape &lt;chr&gt;, FORMULA &lt;chr&gt;,
+## #   SizeClassNo &lt;dbl&gt;, Nonvalid_SIZCL &lt;lgl&gt;, Not_accepted_name &lt;chr&gt;,
+## #   Unit &lt;chr&gt;, SizeRange &lt;chr&gt;, `Length(l1)µm` &lt;dbl&gt;, `Length(l2)µm` &lt;dbl&gt;,
+## #   `Width(w)µm` &lt;dbl&gt;, `Height(h)µm` &lt;dbl&gt;, `Diameter(d1)µm` &lt;dbl&gt;,
+## #   `Diameter(d2)µm` &lt;dbl&gt;, `No_of_cells/counting_unit` &lt;dbl&gt;, …</code></pre>
+<p>Please note that <code>SHARK4R</code> also includes a useful function
+for reading exported <a href="https://nordicmicroalgae.org/plankton-toolbox/">Plankton
+Toolbox</a> data files: <code>read_ptbx()</code>.</p>
+<hr />
+</div>
+<div id="citation" class="section level2">
+<h2>Citation</h2>
+<pre><code>## To cite package &#39;SHARK4R&#39; in publications use:
+## 
+##   Lindh, M. and Torstensson, A. (2025). SHARK4R: Accessing and
+##   Validating Marine Environmental Data from &#39;SHARK&#39; and Related
+##   Databases. R package version 1.0.1.
+##   https://CRAN.R-project.org/package=SHARK4R
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {SHARK4R: Accessing and Validating Marine Environmental Data from &#39;SHARK&#39; and Related Databases},
+##     author = {Markus Lindh and Anders Torstensson},
+##     year = {2025},
+##     note = {R package version 1.0.1},
+##     url = {https://CRAN.R-project.org/package=SHARK4R},
+##   }</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

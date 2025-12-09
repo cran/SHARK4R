@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Retrieve Data From SHARK</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Retrieve Data From SHARK</h1>
+
+
+
+<div id="shark" class="section level2">
+<h2>SHARK</h2>
+<p>SHARK is the Swedish Ocean Archive’s (Svenskt HavsARKivs) platform
+for data downloads. It stores biological, physical, and chemical marine
+environmental monitoring data. On behalf of the Swedish Agency for
+Marine and Water Management, SMHI serves as the national data host for
+oceanography and marine biology. SMHI is also recognized by UNESCO as a
+National Oceanographic Data Center (NODC) within the Oceanographic Data
+and Information (IODE) programme. The data can be accessed via a <a href="https://shark.smhi.se/en/">web interface</a> or directly through
+the <a href="https://shark.smhi.se/api/docs/">API</a>, as demonstrated
+in this tutorial using <code>SHARK4R</code>.</p>
+</div>
+<div id="getting-started" class="section level2">
+<h2>Getting Started</h2>
+<div id="installation" class="section level4">
+<h4>Installation</h4>
+<p>You can install the latest version of <code>SHARK4R</code> from CRAN
+using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;SHARK4R&quot;</span>)</span></code></pre></div>
+<p>Load the <code>SHARK4R</code> library:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(SHARK4R)</span></code></pre></div>
+</div>
+</div>
+<div id="retrieve-data-table" class="section level2">
+<h2>Retrieve Data Table</h2>
+<p>Data can be retrieved with the same filtering options available in <a href="https://shark.smhi.se/en/">SHARK</a>. To see the available
+filtering options, please refer to <code>get_shark_options()</code> and
+the information below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Retrieve chlorophyll data for April to June from 2019 to 2020</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>shark_data <span class="ot">&lt;-</span> <span class="fu">get_shark_data</span>(<span class="at">fromYear =</span> <span class="dv">2019</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>                             <span class="at">toYear =</span> <span class="dv">2020</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                             <span class="at">months =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), </span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>                             <span class="at">dataTypes =</span> <span class="st">&quot;Chlorophyll&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                             <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># Print data</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="fu">print</span>(shark_data)</span></code></pre></div>
+<pre><code>## # A tibble: 179 × 72
+##    delivery_datatype check_status_sv data_checked_by_sv visit_year visit_month
+##    &lt;chr&gt;             &lt;chr&gt;           &lt;chr&gt;                   &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Chlorophyll       Klar            Leverantör               2020           6
+##  2 Chlorophyll       Klar            Leverantör               2020           6
+##  3 Chlorophyll       Klar            Leverantör               2020           6
+##  4 Chlorophyll       Klar            Leverantör               2020           6
+##  5 Chlorophyll       Klar            Leverantör               2020           6
+##  6 Chlorophyll       Klar            Leverantör               2020           6
+##  7 Chlorophyll       Klar            Leverantör               2020           6
+##  8 Chlorophyll       Klar            Leverantör               2020           6
+##  9 Chlorophyll       Klar            Leverantör               2020           6
+## 10 Chlorophyll       Klar            Leverantör               2020           6
+## # ℹ 169 more rows
+## # ℹ 67 more variables: station_name &lt;chr&gt;, reported_station_name &lt;chr&gt;,
+## #   sample_location_id &lt;dbl&gt;, station_id &lt;dbl&gt;, sample_project_name_sv &lt;lgl&gt;,
+## #   sample_orderer_name_sv &lt;lgl&gt;, visit_id &lt;dbl&gt;, visit_date &lt;lgl&gt;,
+## #   shark_sample_id_md5 &lt;chr&gt;, sample_date &lt;date&gt;, sample_time &lt;time&gt;,
+## #   sample_enddate &lt;lgl&gt;, sample_endtime &lt;lgl&gt;, sample_latitude_dm &lt;chr&gt;,
+## #   sample_longitude_dm &lt;chr&gt;, sample_latitude_dd &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="get-shark-api-options" class="section level2">
+<h2>Get SHARK API Options</h2>
+<p>Filtering options, including data types, dataset names, stations,
+taxa, and more, can be retrieved using the
+<code>get_shark_options()</code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Retrieve available search options</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>shark_options <span class="ot">&lt;-</span> <span class="fu">get_shark_options</span>()</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># List the names of the available options</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="fu">names</span>(shark_options)</span></code></pre></div>
+<pre><code>##  [1] &quot;datasets&quot;              &quot;dataTypes&quot;             &quot;parameters&quot;           
+##  [4] &quot;minYear&quot;               &quot;maxYear&quot;               &quot;months&quot;               
+##  [7] &quot;checkStatuses&quot;         &quot;qualityFlags&quot;          &quot;deliverers&quot;           
+## [10] &quot;orderers&quot;              &quot;projects&quot;              &quot;redListedCategories&quot;  
+## [13] &quot;taxa&quot;                  &quot;stations&quot;              &quot;seaAreas&quot;             
+## [16] &quot;vattenDistrikt&quot;        &quot;typOmraden&quot;            &quot;seaBasins&quot;            
+## [19] &quot;counties&quot;              &quot;municipalities&quot;        &quot;waterCategories&quot;      
+## [22] &quot;helcomOspar&quot;           &quot;parametersForDatatype&quot; &quot;headerlangers&quot;        
+## [25] &quot;minYearPerDatatype&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># View available datatypes</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>dataTypes <span class="ot">&lt;-</span> shark_options<span class="sc">$</span>dataTypes</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">print</span>(dataTypes)</span></code></pre></div>
+<pre><code>##  [1] &quot;Bacterioplankton&quot;      &quot;Chlorophyll&quot;           &quot;Epibenthos&quot;           
+##  [4] &quot;Grey seal&quot;             &quot;Harbour Porpoise&quot;      &quot;Harbour seal&quot;         
+##  [7] &quot;Physical and Chemical&quot; &quot;Phytoplankton&quot;         &quot;Picoplankton&quot;         
+## [10] &quot;Plankton Barcoding&quot;    &quot;Plankton Imaging&quot;      &quot;Primary production&quot;   
+## [13] &quot;Profile&quot;               &quot;Ringed seal&quot;           &quot;Seal pathology&quot;       
+## [16] &quot;Sedimentation&quot;         &quot;Zoobenthos&quot;            &quot;Zooplankton&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># View available dataset names</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>datasetNames <span class="ot">&lt;-</span> shark_options<span class="sc">$</span>datasets</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">head</span>(datasetNames) <span class="co"># Print first few dataset names</span></span></code></pre></div>
+<pre><code>## [1] &quot;SHARK_Bacterioplankton_ABUND_2023_UMSC_version_2024-06-04.zip&quot;        
+## [2] &quot;SHARK_Bacterioplankton_ABU_2006_UMSC_Bactabund_version_2024-09-27.zip&quot;
+## [3] &quot;SHARK_Bacterioplankton_ABU_2007_UMSC_Bactabund_version_2024-09-27.zip&quot;
+## [4] &quot;SHARK_Bacterioplankton_ABU_2008_UMSC_Bactabund_version_2024-09-27.zip&quot;
+## [5] &quot;SHARK_Bacterioplankton_ABU_2009_UMSC_Bactabund_version_2024-09-27.zip&quot;
+## [6] &quot;SHARK_Bacterioplankton_ABU_2010_UMSC_Bactabund_version_2024-09-27.zip&quot;</code></pre>
+</div>
+<div id="retrieve-datasets-zip-archives" class="section level2">
+<h2>Retrieve Datasets (Zip-archives)</h2>
+<p>In addition to accessing data in tabular form, you can also download
+complete datasets packaged as zip archives. This is useful if you want
+to store complete datasets locally for further analysis.</p>
+<p>To explore all available dataset names, use the
+<code>get_shark_options()</code>. Once you know which datasets you need,
+you can pass their names (or partial names) to the
+<code>get_shark_datasets()</code> function.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Select a dataset name (e.g., the first two in the list)</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>dataset_name <span class="ot">&lt;-</span> datasetNames[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co"># Download the dataset as a zip-archive to a temporary directory</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>shark_data_zip <span class="ot">&lt;-</span> <span class="fu">get_shark_datasets</span>(dataset_name,</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>                                     <span class="at">save_dir =</span> <span class="fu">tempdir</span>(),</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>                                     <span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="co"># Quiet output</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co"># Print the paths to the downloaded files</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="fu">print</span>(shark_data_zip)</span></code></pre></div>
+<pre><code>## $`SHARK_Bacterioplankton_ABUND_2023_UMSC_version_2024-06-04.zip`
+## [1] &quot;/tmp/RtmpCw6OIV/SHARK_Bacterioplankton_ABUND_2023_UMSC_version_2024-06-04.zip&quot;
+## 
+## $`SHARK_Bacterioplankton_ABU_2006_UMSC_Bactabund_version_2024-09-27.zip`
+## [1] &quot;/tmp/RtmpCw6OIV/SHARK_Bacterioplankton_ABU_2006_UMSC_Bactabund_version_2024-09-27.zip&quot;</code></pre>
+<p>Please note that <code>SHARK4R</code> also includes useful functions
+for reading local SHARK data files, such as <code>read_shark()</code>
+and <code>read_shark_deliv()</code>.</p>
+<hr />
+</div>
+<div id="citation" class="section level2">
+<h2>Citation</h2>
+<pre><code>## To cite package &#39;SHARK4R&#39; in publications use:
+## 
+##   Lindh, M. and Torstensson, A. (2025). SHARK4R: Accessing and
+##   Validating Marine Environmental Data from &#39;SHARK&#39; and Related
+##   Databases. R package version 1.0.1.
+##   https://CRAN.R-project.org/package=SHARK4R
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {SHARK4R: Accessing and Validating Marine Environmental Data from &#39;SHARK&#39; and Related Databases},
+##     author = {Markus Lindh and Anders Torstensson},
+##     year = {2025},
+##     note = {R package version 1.0.1},
+##     url = {https://CRAN.R-project.org/package=SHARK4R},
+##   }</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
