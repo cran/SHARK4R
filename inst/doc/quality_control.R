@@ -46,8 +46,11 @@ check_codes(data = chlorophyll_data,
             code_type = "SHIPC", 
             match_column = "Code")
 
-## -----------------------------------------------------------------------------
-plot_map_leaflet(chlorophyll_data)
+## ----eval=Sys.getenv("NOT_CRAN", unset = "FALSE") == "TRUE"-------------------
+# plot_map_leaflet(chlorophyll_data)
+
+## ----echo=FALSE, eval=!Sys.getenv("NOT_CRAN", unset = "FALSE") == "TRUE"------
+message("The interactive map is omitted here but appears in the online tutorial.")
 
 ## -----------------------------------------------------------------------------
 n_rows_on_land <- check_onland(chlorophyll_data)
@@ -72,10 +75,13 @@ check_outliers(data = chlorophyll_data,
                threshold_col = "P99",
                thresholds = shark_statistics)
 
-## -----------------------------------------------------------------------------
-# Scatterplot with horizontal line at 99th percentile
-scatterplot(chlorophyll_data,
-            hline = shark_statistics$P99)
+## ----eval=Sys.getenv("NOT_CRAN", unset = "FALSE") == "TRUE"-------------------
+# # Scatterplot with horizontal line at 99th percentile
+# scatterplot(chlorophyll_data,
+#             hline = shark_statistics$P99)
+
+## ----echo=FALSE, eval=!Sys.getenv("NOT_CRAN", unset = "FALSE") == "TRUE"------
+message("The interactive plot is omitted here but appears in the online tutorial.")
 
 ## -----------------------------------------------------------------------------
 check_parameter_rules(data = chlorophyll_data)
@@ -84,9 +90,12 @@ check_parameter_rules(data = chlorophyll_data)
 station_match <- match_station(chlorophyll_data$station_name)
 head(station_match)
 
-## -----------------------------------------------------------------------------
-check_station_distance(data = chlorophyll_data,
-                       plot_leaflet = TRUE)
+## ----eval=Sys.getenv("NOT_CRAN", unset = "FALSE") == "TRUE"-------------------
+# check_station_distance(data = chlorophyll_data,
+#                        plot_leaflet = TRUE)
+
+## ----echo=FALSE, eval=!Sys.getenv("NOT_CRAN", unset = "FALSE") == "TRUE"------
+message("The interactive map is omitted here but appears in the online tutorial.")
 
 ## -----------------------------------------------------------------------------
 check_nominal_station(data = chlorophyll_data)
@@ -100,4 +109,7 @@ check_nominal_station(data = chlorophyll_data)
 
 ## ----echo=FALSE---------------------------------------------------------------
 citation("SHARK4R")
+
+## ----echo=FALSE---------------------------------------------------------------
+clean_shark4r_cache(0, clear_perm_cache = TRUE, verbose = FALSE)
 

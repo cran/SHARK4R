@@ -48,8 +48,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +61,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -382,7 +383,7 @@ information from the results.</p>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Print result as tibble</span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">tibble</span>(hab_list)</span></code></pre></div>
-<pre><code>## # A tibble: 706 × 29
+<pre><code>## # A tibble: 695 × 29
 ##    AphiaID ScientificName      Authority AphiaID_accepted ScientificName_accep…¹
 ##      &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;                 
 ##  1 1653558 Aerosakkonemataceae Struneck…          1653558 Aerosakkonemataceae   
@@ -395,7 +396,7 @@ information from the results.</p>
 ##  8  231872 Alexandrium anders… Balech, …           246835 Alexandrium andersonii
 ##  9  246835 Alexandrium anders… Balech, …           246835 Alexandrium andersonii
 ## 10  233452 Alexandrium angust… F.J.R.Ta…           109711 Alexandrium minutum   
-## # ℹ 696 more rows
+## # ℹ 685 more rows
 ## # ℹ abbreviated name: ¹​ScientificName_accepted
 ## # ℹ 24 more variables: Authority_accepted &lt;chr&gt;, Fossil &lt;dbl&gt;, Kingdom &lt;chr&gt;,
 ## #   Phylum &lt;chr&gt;, Class &lt;chr&gt;, Order &lt;chr&gt;, Family &lt;chr&gt;, taxonRank &lt;chr&gt;,
@@ -408,30 +409,12 @@ information from the results.</p>
 <p>The complete Toxin list can be downloaded from the <a href="https://toxins.hais.ioc-unesco.org/">IOC-UNESCO Toxins
 database</a> using the <code>get_toxin_list()</code> function.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Retrieve complete toxin list</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>toxin_list <span class="ot">&lt;-</span> <span class="fu">get_toxin_list</span>()</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Print result as tibble</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="fu">tibble</span>(toxin_list)</span></code></pre></div>
-<pre><code>## # A tibble: 521 × 55
-##       id toxin_group recommended_name      synonyms recommended_acronym acronyms
-##    &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                 &lt;list&gt;   &lt;chr&gt;               &lt;list&gt;  
-##  1   606 Anatoxin    10-OH-homoanatoxin-a  &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  2   605 Anatoxin    10-OH-anatoxin-a      &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  3   604 Anatoxin    10-OH-H2-homoanatoxi… &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  4   603 Anatoxin    10-OH-H2-anatoxin-a   &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  5   602 Anatoxin    CH3SH-anatoxin-a      &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  6   601 Anatoxin    CH3O-homoanatoxin-a   &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  7   600 Anatoxin    CH3O-anatoxin-a       &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  8   599 Anatoxin    3-OH-homoanatoxin-a   &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-##  9   598 Anatoxin    3-OH-anatoxin-a       &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-## 10   597 Anatoxin    carboxyhomoanatoxin-a &lt;NULL&gt;   &lt;NA&gt;                &lt;NULL&gt;  
-## # ℹ 511 more rows
-## # ℹ 49 more variables: cas_number &lt;chr&gt;, alternative_cas_numbers &lt;list&gt;,
-## #   formula &lt;chr&gt;, exact_mono_isotopic_mass &lt;dbl&gt;, molfile &lt;chr&gt;,
-## #   alternative_molfiles &lt;lgl&gt;, smiles &lt;chr&gt;, alternative_smiles &lt;list&gt;,
-## #   inchi_key &lt;chr&gt;, alternative_inchi_keys &lt;list&gt;, inchi &lt;chr&gt;,
-## #   alternative_inchies &lt;lgl&gt;, spectra_available &lt;lgl&gt;, certified &lt;lgl&gt;,
-## #   non_certified_reference_material &lt;lgl&gt;, chemical_analysis_research &lt;lgl&gt;, …</code></pre>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>toxin_list <span class="ot">&lt;-</span> <span class="fu">get_toxin_list</span>()</span></code></pre></div>
+<pre><code>## Warning in get_toxin_list(): Partial response detected during download. Returning only complete toxin records. Error: Could not resolve hostname [toxins.hais.ioc-unesco.org]:
+## Could not resolve host: toxins.hais.ioc-unesco.org</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Print result as tibble</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">tibble</span>(toxin_list)</span></code></pre></div>
+<pre><code>## # A tibble: 0 × 0</code></pre>
 <hr />
 </div>
 <div id="citation" class="section level2">
@@ -440,7 +423,7 @@ database</a> using the <code>get_toxin_list()</code> function.</p>
 ## 
 ##   Lindh, M. and Torstensson, A. (2025). SHARK4R: Accessing and
 ##   Validating Marine Environmental Data from &#39;SHARK&#39; and Related
-##   Databases. R package version 1.0.1.
+##   Databases. R package version 1.0.2.
 ##   https://CRAN.R-project.org/package=SHARK4R
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -449,7 +432,7 @@ database</a> using the <code>get_toxin_list()</code> function.</p>
 ##     title = {SHARK4R: Accessing and Validating Marine Environmental Data from &#39;SHARK&#39; and Related Databases},
 ##     author = {Markus Lindh and Anders Torstensson},
 ##     year = {2025},
-##     note = {R package version 1.0.1},
+##     note = {R package version 1.0.2},
 ##     url = {https://CRAN.R-project.org/package=SHARK4R},
 ##   }</code></pre>
 </div>

@@ -5,7 +5,7 @@ account: anderstorstensson
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 15673531
-bundleId: 11041671
+bundleId: 11003482
 url: https://anderstorstensson.shinyapps.io/shark-qc/
 version: 1
 asMultiple: FALSE

@@ -51,3 +51,6 @@ print(shark_data_zip)
 # Print citation
 citation("SHARK4R")
 
+## ----echo=FALSE---------------------------------------------------------------
+clean_shark4r_cache(0, clear_perm_cache = TRUE, verbose = FALSE)
+
