@@ -48,9 +48,8 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -457,10 +456,10 @@ you can pass their names (or partial names) to the
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co"># Print the paths to the downloaded files</span></span>
 <span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="fu">print</span>(shark_data_zip)</span></code></pre></div>
 <pre><code>## $`SHARK_Bacterioplankton_ABUND_2023_UMSC_version_2024-06-04.zip`
-## [1] &quot;C:/Users/a002440/AppData/Local/Temp/Rtmpyq9QTW/SHARK_Bacterioplankton_ABUND_2023_UMSC_version_2024-06-04.zip&quot;
+## [1] &quot;/tmp/RtmpFeHPbX/SHARK_Bacterioplankton_ABUND_2023_UMSC_version_2024-06-04.zip&quot;
 ## 
 ## $`SHARK_Bacterioplankton_ABU_2006_UMSC_Bactabund_version_2024-09-27.zip`
-## [1] &quot;C:/Users/a002440/AppData/Local/Temp/Rtmpyq9QTW/SHARK_Bacterioplankton_ABU_2006_UMSC_Bactabund_version_2024-09-27.zip&quot;</code></pre>
+## [1] &quot;/tmp/RtmpFeHPbX/SHARK_Bacterioplankton_ABU_2006_UMSC_Bactabund_version_2024-09-27.zip&quot;</code></pre>
 <p>Please note that <code>SHARK4R</code> also includes useful functions
 for reading local SHARK data files, such as <code>read_shark()</code>
 and <code>read_shark_deliv()</code>.</p>
@@ -470,9 +469,9 @@ and <code>read_shark_deliv()</code>.</p>
 <h2>Citation</h2>
 <pre><code>## To cite package &#39;SHARK4R&#39; in publications use:
 ## 
-##   Lindh, M. and Torstensson, A. (2025). SHARK4R: Accessing and
+##   Lindh, M. and Torstensson, A. (2026). SHARK4R: Accessing and
 ##   Validating Marine Environmental Data from &#39;SHARK&#39; and Related
-##   Databases. R package version 1.0.2.
+##   Databases. R package version 1.0.3.
 ##   https://CRAN.R-project.org/package=SHARK4R
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -480,8 +479,8 @@ and <code>read_shark_deliv()</code>.</p>
 ##   @Manual{,
 ##     title = {SHARK4R: Accessing and Validating Marine Environmental Data from &#39;SHARK&#39; and Related Databases},
 ##     author = {Markus Lindh and Anders Torstensson},
-##     year = {2025},
-##     note = {R package version 1.0.2},
+##     year = {2026},
+##     note = {R package version 1.0.3},
 ##     url = {https://CRAN.R-project.org/package=SHARK4R},
 ##   }</code></pre>
 </div>

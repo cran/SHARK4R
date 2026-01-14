@@ -1,15 +1,8 @@
 ## ----eval=FALSE---------------------------------------------------------------
 # install.packages("SHARK4R")
 
-## ----include=FALSE------------------------------------------------------------
-suppressPackageStartupMessages({
-  library(SHARK4R)
-  library(dplyr)
-})
-
-## ----eval=FALSE---------------------------------------------------------------
-# library(SHARK4R)
-# library(dplyr)
+## -----------------------------------------------------------------------------
+library(SHARK4R)
 
 ## -----------------------------------------------------------------------------
 shark_options <- get_shark_options()
@@ -31,7 +24,7 @@ chlorophyll_data <- get_shark_datasets(selected_dataset,
                                        return_df = TRUE,
                                        verbose = FALSE)
 
-tibble(chlorophyll_data)
+print(chlorophyll_data)
 
 ## -----------------------------------------------------------------------------
 check_fields(data = chlorophyll_data, datatype = "Chlorophyll")
@@ -66,7 +59,7 @@ shark_statistics <- get_shark_statistics(datatype = "Chlorophyll",
                                          toYear = 2024,
                                          verbose = FALSE)
 
-tibble(shark_statistics)
+print(shark_statistics)
 
 ## -----------------------------------------------------------------------------
 check_outliers(data = chlorophyll_data,

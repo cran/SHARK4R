@@ -38,8 +38,8 @@ worms_records <- match_worms_taxa(unique(taxa_names),
                                   marine_only = TRUE,
                                   verbose = FALSE)
 
-# Print result as tibble
-tibble(worms_records)
+# Print result
+print(worms_records)
 
 ## -----------------------------------------------------------------------------
 # Randomly select ten Aphia IDs
@@ -53,18 +53,18 @@ aphia_ids <- aphia_ids[!is.na(aphia_ids)]
 worms_records <- get_worms_records(aphia_ids,
                                    verbose = FALSE)
 
-# Print result as tibble
-tibble(worms_records)
+# Print result
+print(worms_records)
 
 ## -----------------------------------------------------------------------------
 # Retrieve taxonomic table
 worms_taxonomy <- add_worms_taxonomy(aphia_ids,
                                      verbose = FALSE)
 
-# Print result as tibble
-tibble(worms_taxonomy)
+# Print result
+print(worms_taxonomy)
 
-# Enrich data with data from WoRMS
+# Enrich SHARK data with taxonomic data from WoRMS
 shark_data_with_worms <- shark_data %>%
   left_join(worms_taxonomy, by = "aphia_id")
 
@@ -77,8 +77,8 @@ worms_tree <- get_worms_taxonomy_tree(
   verbose = FALSE              # suppress progress messages
 )
 
-# Print as tibble for easier viewing
-tibble(worms_tree)
+# Print result
+print(worms_tree)
 
 ## -----------------------------------------------------------------------------
 # Subset data from one national monitoring station
@@ -99,7 +99,7 @@ plankton_groups <- assign_phytoplankton_group(
   verbose = FALSE)
 
 # Print result
-tibble(distinct(plankton_groups))
+distinct(plankton_groups)
 
 # Add plankton groups to data and summarize abundance results
 plankton_group_sum <- shark_data_subset %>%

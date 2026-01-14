@@ -48,9 +48,8 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -379,8 +378,7 @@ SHARK format.</p>
 using:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;SHARK4R&quot;</span>)</span></code></pre></div>
 <p>Load the package along with <code>dplyr</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(SHARK4R)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(SHARK4R)</span></code></pre></div>
 <hr />
 </div>
 <div id="retrieve-shark-data" class="section level2">
@@ -405,7 +403,7 @@ SHARK web interface. Explore available options with:</p>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>                                       <span class="at">return_df =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>                                       <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">tibble</span>(chlorophyll_data)</span></code></pre></div>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">print</span>(chlorophyll_data)</span></code></pre></div>
 <pre><code>## # A tibble: 80 × 73
 ##    source delivery_datatype check_status_sv data_checked_by_sv visit_year
 ##     &lt;dbl&gt; &lt;chr&gt;             &lt;chr&gt;           &lt;chr&gt;                   &lt;dbl&gt;
@@ -544,7 +542,7 @@ SHARK web interface. Explore available options with:</p>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>                                         <span class="at">toYear =</span> <span class="dv">2024</span>,</span>
 <span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>                                         <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="fu">tibble</span>(shark_statistics)</span></code></pre></div>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="fu">print</span>(shark_statistics)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 24
 ##   parameter  datatype fromYear toYear     n   min    Q1 median    Q3   max   P01
 ##   &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -588,7 +586,7 @@ lists.</li>
 <h2>Step 7: Station Matching</h2>
 <p>Verify station names against the official SHARK registry:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>station_match <span class="ot">&lt;-</span> <span class="fu">match_station</span>(chlorophyll_data<span class="sc">$</span>station_name)</span></code></pre></div>
-<pre><code>## Using station.txt from NODC_CONFIG: C:\Python_proj\nodc_config/config/station.txt</code></pre>
+<pre><code>## Using station.txt from NODC_CONFIG: /home/anders/nodc_config//nodc_station/station.txt</code></pre>
 <pre><code>## All stations found</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">head</span>(station_match)</span></code></pre></div>
 <pre><code>##   reported_station_name match_type
@@ -656,9 +654,9 @@ data for analysis.</p>
 <h2>Citation</h2>
 <pre><code>## To cite package &#39;SHARK4R&#39; in publications use:
 ## 
-##   Lindh, M. and Torstensson, A. (2025). SHARK4R: Accessing and
+##   Lindh, M. and Torstensson, A. (2026). SHARK4R: Accessing and
 ##   Validating Marine Environmental Data from &#39;SHARK&#39; and Related
-##   Databases. R package version 1.0.2.
+##   Databases. R package version 1.0.3.
 ##   https://CRAN.R-project.org/package=SHARK4R
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -666,8 +664,8 @@ data for analysis.</p>
 ##   @Manual{,
 ##     title = {SHARK4R: Accessing and Validating Marine Environmental Data from &#39;SHARK&#39; and Related Databases},
 ##     author = {Markus Lindh and Anders Torstensson},
-##     year = {2025},
-##     note = {R package version 1.0.2},
+##     year = {2026},
+##     note = {R package version 1.0.3},
 ##     url = {https://CRAN.R-project.org/package=SHARK4R},
 ##   }</code></pre>
 </div>

@@ -48,9 +48,8 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -61,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -347,12 +346,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 online platform providing high-quality images, illustrations, and
 detailed information about aquatic microalgae and related organisms in
 the Nordic region, including phytoplankton, microzooplankton, and
-benthic microalgae. It features a comprehensive species checklist,
-up-to-date taxonomic data linked to WoRMS and AlgaeBase, and
-supplementary resources such as biovolume lists and occurrence maps.
-Established in 1996 and supported by long-term funding from the Swedish
-Research Council through the Swedish Biodiversity Data Infrastructure
-(SBDI).</p>
+benthic microalgae (Torstensson et al. 2024). It features a
+comprehensive species checklist, up-to-date taxonomic data linked to
+WoRMS and AlgaeBase, and supplementary resources such as biovolume lists
+and occurrence maps. Established in 1996 and supported by long-term
+funding from the Swedish Research Council through the Swedish
+Biodiversity Data Infrastructure (SBDI).</p>
 <p>All data on Nordic Microalgae is accessible through our <a href="https://nordicmicroalgae.org/api/">API</a>. Below are examples
 demonstrating how to extract data using the SHARK4R package.</p>
 </div>
@@ -364,8 +363,7 @@ demonstrating how to extract data using the SHARK4R package.</p>
 using:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;SHARK4R&quot;</span>)</span></code></pre></div>
 <p>Load the <code>SHARK4R</code> and <code>dplyr</code> libraries:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(SHARK4R)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(SHARK4R)</span></code></pre></div>
 </div>
 </div>
 <div id="retrieve-complete-nordic-microalgae-taxon-table" class="section level2">
@@ -376,7 +374,7 @@ API.</p>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>taxa <span class="ot">&lt;-</span> <span class="fu">get_nua_taxa</span>(<span class="at">unparsed =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Print data</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">tibble</span>(taxa)</span></code></pre></div>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">print</span>(taxa)</span></code></pre></div>
 <pre><code>## # A tibble: 6,860 × 5
 ##    scientific_name           authority                       rank  slug  nua_url
 ##    &lt;chr&gt;                     &lt;chr&gt;                           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  
@@ -408,21 +406,21 @@ can be retrieved through the API.</p>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                                         <span class="at">unparsed =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co"># Print list</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="fu">tibble</span>(external_links)</span></code></pre></div>
-<pre><code>## # A tibble: 60 × 6
-##    slug                    provider  label   external_id external_url collection
-##    &lt;chr&gt;                   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     
-##  1 stauroneis-leguminopsis AlgaeBase AlgaeB… 47962       https://www… External …
-##  2 stauroneis-leguminopsis Dyntaxa   Dyntaxa 262720      https://art… External …
-##  3 stauroneis-leguminopsis GBIF      GBIF    8305001     https://www… External …
-##  4 stauroneis-leguminopsis WoRMS     WoRMS   613789      https://www… External …
-##  5 blidingia               AlgaeBase AlgaeB… 28          https://www… External …
-##  6 blidingia               Dyntaxa   Dyntaxa 1008562     https://art… External …
-##  7 blidingia               ENA       ENA     63413       https://www… External …
-##  8 blidingia               GBIF      GBIF    2645648     https://www… External …
-##  9 blidingia               ITIS      ITIS    6502        http://www.… External …
-## 10 blidingia               NCBI      NCBI    63413       https://www… External …
-## # ℹ 50 more rows</code></pre>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="fu">print</span>(external_links)</span></code></pre></div>
+<pre><code>## # A tibble: 51 × 6
+##    slug                 provider  label     external_id external_url  collection
+##    &lt;chr&gt;                &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;     
+##  1 petroneis-latissima  AlgaeBase AlgaeBase 39501       https://www.… External …
+##  2 petroneis-latissima  Dyntaxa   Dyntaxa   237802      https://artf… External …
+##  3 petroneis-latissima  GBIF      GBIF      7369992     https://www.… External …
+##  4 petroneis-latissima  WoRMS     WoRMS     175574      https://www.… External …
+##  5 cymbella-naviculacea AlgaeBase AlgaeBase 33350       https://www.… External …
+##  6 cymbella-naviculacea Dyntaxa   Dyntaxa   262491      https://artf… External …
+##  7 cymbella-naviculacea GBIF      GBIF      7443908     https://www.… External …
+##  8 cymbella-naviculacea WoRMS     WoRMS     610401      https://www.… External …
+##  9 cosmarium-regnellii  AlgaeBase AlgaeBase 28618       https://www.… External …
+## 10 cosmarium-regnellii  Dyntaxa   Dyntaxa   263195      https://artf… External …
+## # ℹ 41 more rows</code></pre>
 <p>The full list of facts can be accessed as an unparsed list by setting
 the <code>unparsed</code> parameter to <code>TRUE</code>.</p>
 </div>
@@ -437,7 +435,7 @@ This information can be retrieved through the API.</p>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                                   <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co"># Print list</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fu">tibble</span>(harmfulness)</span></code></pre></div>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fu">print</span>(harmfulness)</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 6
 ##    slug                    provider   label  external_id external_url collection
 ##    &lt;chr&gt;                   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     
@@ -462,21 +460,21 @@ small (s), medium (m), and large (l).</p>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">get_nua_media_links</span>(<span class="at">unparsed =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># Print list</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">tibble</span>(media)</span></code></pre></div>
-<pre><code>## # A tibble: 2,420 × 10
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">print</span>(media)</span></code></pre></div>
+<pre><code>## # A tibble: 2,421 × 10
 ##    slug              image_l_url image_o_url image_s_url image_m_url contributor
 ##    &lt;chr&gt;             &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;      
-##  1 lennoxia-faveola… https://no… https://no… https://no… https://no… Maria Karl…
-##  2 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  1 octactis-speculum https://no… https://no… https://no… https://no… SMHI       
+##  2 lennoxia-faveola… https://no… https://no… https://no… https://no… Maria Karl…
 ##  3 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
 ##  4 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
 ##  5 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
 ##  6 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
-##  7 pleurosigma       https://no… https://no… https://no… https://no… Maria Karl…
-##  8 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  7 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
+##  8 pleurosigma       https://no… https://no… https://no… https://no… Maria Karl…
 ##  9 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
 ## 10 &lt;NA&gt;              https://no… https://no… https://no… https://no… Per Wilhel…
-## # ℹ 2,410 more rows
+## # ℹ 2,411 more rows
 ## # ℹ 4 more variables: photographer_artist &lt;chr&gt;, copyright_holder &lt;chr&gt;,
 ## #   license &lt;chr&gt;, galleries &lt;chr&gt;</code></pre>
 <p>Complete media information can be retrieved as an unparsed list by
@@ -492,7 +490,7 @@ retrieved directly in R using <code>SHARK4R</code>:</p>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>peg_list <span class="ot">&lt;-</span> <span class="fu">get_peg_list</span>()</span></code></pre></div>
 <pre><code>## Reading PEG biovolume Excel file for year: 2025</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Print list</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">tibble</span>(peg_list)</span></code></pre></div>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">print</span>(peg_list)</span></code></pre></div>
 <pre><code>## # A tibble: 3,527 × 36
 ##    Division    Class Order Genus Species SFLAG STAGE Author AphiaID AphiaID_link
 ##    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;       
@@ -515,10 +513,11 @@ retrieved directly in R using <code>SHARK4R</code>:</p>
 ## #   `Calculated_volume_µm3 (with formula) - NOT IMPORTED, NOT handled by ICES` &lt;dbl&gt;, …</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Get NOMP Biovolume list</span></span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>nomp_list <span class="ot">&lt;-</span> <span class="fu">get_nomp_list</span>()</span></code></pre></div>
+<pre><code>## File for year 2026 not available. Trying previous year...</code></pre>
 <pre><code>## File for year 2025 not available. Trying previous year...</code></pre>
 <pre><code>## File for year 2024 downloaded and cached.</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Print list</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">tibble</span>(nomp_list)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Print list</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">print</span>(nomp_list)</span></code></pre></div>
 <pre><code>## # A tibble: 3,846 × 39
 ##    List      `HELCOM area` `OSPAR area` Division Class Order Genus Species SFLAG
 ##    &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;
@@ -548,9 +547,9 @@ Toolbox</a> data files: <code>read_ptbx()</code>.</p>
 <h2>Citation</h2>
 <pre><code>## To cite package &#39;SHARK4R&#39; in publications use:
 ## 
-##   Lindh, M. and Torstensson, A. (2025). SHARK4R: Accessing and
+##   Lindh, M. and Torstensson, A. (2026). SHARK4R: Accessing and
 ##   Validating Marine Environmental Data from &#39;SHARK&#39; and Related
-##   Databases. R package version 1.0.2.
+##   Databases. R package version 1.0.3.
 ##   https://CRAN.R-project.org/package=SHARK4R
 ## 
 ## A BibTeX entry for LaTeX users is
@@ -558,10 +557,19 @@ Toolbox</a> data files: <code>read_ptbx()</code>.</p>
 ##   @Manual{,
 ##     title = {SHARK4R: Accessing and Validating Marine Environmental Data from &#39;SHARK&#39; and Related Databases},
 ##     author = {Markus Lindh and Anders Torstensson},
-##     year = {2025},
-##     note = {R package version 1.0.2},
+##     year = {2026},
+##     note = {R package version 1.0.3},
 ##     url = {https://CRAN.R-project.org/package=SHARK4R},
 ##   }</code></pre>
+<hr />
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li>Torstensson, A., Loo, A., Sundqvist, L., Skjevik, A.-T., Karlberg,
+M., Johansen, M., Andreasson, A., and Karlson, B. (2024). Nordic
+Microalgae 2.0, Accessed at www.nordicmicroalgae.org on 2026-01-14.</li>
+</ul>
 </div>
 
 

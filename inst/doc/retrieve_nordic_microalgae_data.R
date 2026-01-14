@@ -1,22 +1,15 @@
 ## ----eval=FALSE---------------------------------------------------------------
 # install.packages("SHARK4R")
 
-## ----eval=FALSE---------------------------------------------------------------
-# library(SHARK4R)
-# library(dplyr)
-
-## ----include=FALSE------------------------------------------------------------
-suppressPackageStartupMessages({
-  library(SHARK4R)
-  library(dplyr)
-})
+## -----------------------------------------------------------------------------
+library(SHARK4R)
 
 ## -----------------------------------------------------------------------------
 # Get taxa information
 taxa <- get_nua_taxa(unparsed = FALSE)
 
 # Print data
-tibble(taxa)
+print(taxa)
 
 ## -----------------------------------------------------------------------------
 # Randomly select 10 taxa from shark_taxon$scientific_name
@@ -28,7 +21,7 @@ external_links <- get_nua_external_links(slugs,
                                          unparsed = FALSE)
 
 # Print list
-tibble(external_links)
+print(external_links)
 
 ## -----------------------------------------------------------------------------
 # Get external links
@@ -37,27 +30,27 @@ harmfulness <- get_nua_harmfulness(c("dinophysis-acuta",
                                    verbose = FALSE)
 
 # Print list
-tibble(harmfulness)
+print(harmfulness)
 
 ## -----------------------------------------------------------------------------
 # Get all media links
 media <- get_nua_media_links(unparsed = FALSE)
 
 # Print list
-tibble(media)
+print(media)
 
 ## -----------------------------------------------------------------------------
 # Get EG Phyto Biovolume list
 peg_list <- get_peg_list()
 
 # Print list
-tibble(peg_list)
+print(peg_list)
 
 # Get NOMP Biovolume list
 nomp_list <- get_nomp_list()
 
 # Print list
-tibble(nomp_list)
+print(nomp_list)
 
 ## ----echo=FALSE---------------------------------------------------------------
 # Print citation
